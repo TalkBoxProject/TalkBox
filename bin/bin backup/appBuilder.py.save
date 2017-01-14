@@ -1,0 +1,44 @@
+#!/usr/bin/env python
+
+remixer_image_filename = '../Media/mixer1.jpg'
+rpi_image_filename = '../Media/pi.jpg'
+
+import pygame
+import os
+from sys import exit
+from pygame.locals import *
+
+os.putenv('SDL_FBDEV', '/dev/fb1')
+os.putenv('SDL_MOUSEDRV', 'TSLIB')
+os.putenv('SDL_MOUSEDEV', '/dev/input/touchscreen')
+
+pygame.init()
+
+screen = pygame.display.set_mode((640, 480), 0, 32)
+screen.fill((255, 255, 255))
+pygame.display.set_caption("reMixer")
+
+remixer = pygame.image.load(remixer_image_filename).convert()
+rpi = pygame.image.load(rpi_image_filename).convert()
+
+#pygame.mouse.set_visible(False)
+
+
+
+while True:
+
+        for event in pygame.event.get():
+                if event.type == QUIT:
+                        pygame.quit()
+                        exit()
+		if event.type == MOUSEBUTTONDOWN or event.type == MOUSEBUTTONUP: 
+			x, y = event.pos
+			if rpi.get_rect().collidepoint(x,y): 
+				print 'rpi'
+			if remixer.get_rect().collidepoint(x,y):
+				print 'remixer'
+
+        screen.blit(remixer, (20,80))
+	screen.blit(rpi, (320,100))
+	pygame.display.update()
+

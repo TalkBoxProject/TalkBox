@@ -1,0 +1,11 @@
+This file contains instructions on how to provide the sound files to TalkBox. 
+
+You can supply TalkBox with a maximum of two sets of sounds, each of 10 individual sounds.
+
+Copy your sounds to the two folders in the Sounds folder. 
+
+In each folder name and number your sounds, S1, S2, ...
+
+If you don't want a set to contain sounds leave the folder empty. If S1 doesn't exist in the folder, it only uses Set 1.  
+
+Written by Foad Hamidi, September 2016

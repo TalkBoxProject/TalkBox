@@ -1,0 +1,93 @@
+#!/usr/bin/env python
+
+#This code is developed by Foad Hamidi, 2016.
+
+#First, we include the location of all the images we will be using:
+remixer_image_filename = '../Media/remixer.jpg'
+rpi_image_filename = '../Media/rpi.jpg'
+new_image_filename = '../Media/new.png'
+talkBox_image_filename = '../Media/talkBox.jpg'
+remixerSmall_image_filename = '../Media/remixerSmall.jpg'
+rpiSmall_image_filename = '../Media/rpiSmall.png'
+
+import pygame
+import os
+from sys import exit
+from pygame.locals import *
+from pygame import Rect
+
+#These are needed to use touchscreen
+os.putenv('SDL_FBDEV', '/dev/fb1')
+os.putenv('SDL_MOUSEDRV', 'TSLIB')
+os.putenv('SDL_MOUSEDEV', '/dev/input/touchscreen')
+
+pygame.init()
+
+#Initializing the screen using dimensions of 3.5inch TFT Resistive Touchscreen
+screen = pygame.display.set_mode((480, 320), 0, 32)
+screen.fill((255, 255, 255))
+background = pygame.Surface(screen.get_size())
+background = background.convert()
+background.fill((255, 255, 255))
+pygame.display.set_caption("reMixer")
+
+#Loading all the needed image files
+remixer = pygame.image.load(remixer_image_filename).convert()
+rpi = pygame.image.load(rpi_image_filename).convert()
+remixerSmall = pygame.image.load(remixerSmall_image_filename).convert()
+rpiSmall = pygame.image.load(rpiSmall_image_filename).convert()
+
+
+#Creating rectangles for all the images to detect touch input
+remixer_rect = pygame.Rect(5,20,250,240)
+rpi_rect = pygame.Rect(220,28,250,221)
+remixerSmall_rect = pygame.Rect(5,20,250,240)
+rpiSmall_rect = pygame.Rect(220,28,250,221)
+
+#Used to implemented interaction
+pageNumber = 1
+
+#pygame.mouse.set_visible(False)
+
+#Main program loop
+while True:
+
+        for event in pygame.event.get():
+                if event.type == QUIT:
+                        pygame.quit()
+                        exit()
+		#The start of the program
+		if pageNumber == 1:
+			#Checking for user input
+			if event.type == MOUSEBUTTONDOWN or event.type == MOUSEBUTTONUP: 
+				x, y = event.pos
+				if pygame.Rect(rpi_rect).collidepoint(x,y): 
+					pygame.quit()
+					exit()
+				if pygame.Rect(remixer_rect).collidepoint(x,y):
+					pageNumber = 2
+			#Initial interface is loaded
+        		background.blit(remixer, (5,20))
+			background.blit(rpi, (220,28))
+			screen.blit(background, (0,0))
+			pygame.display.update()
+		#The second screen
+		elif pageNumber == 2:
+			screen.fill((255, 255, 255))
+			background.fill((255, 255, 255))
+			new_image_filename = '../Media/new.png'
+talkBox_image_filename = '../Media/talkBox.jpg'
+
+			background.blit(remixerSmall, (20,10))
+                        background.blit(rpiSmall, (300,20))
+			screen.blit(background, (0,0))
+                        pygame.display.update()
+
+			if event.type == MOUSEBUTTONDOWN or event.type == MOUSEBUTTONUP:
+                               x, y = event.pos
+                               if pygame.Rect(rpi_rect).collidepoint(x,y):
+                                       pygame.quit()
+                                       exit()
+                               if pygame.Rect(remixer_rect).collidepoint(x,y):
+                                       print 'here'
+			
