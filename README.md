@@ -1,5 +1,8 @@
 # TalkBox_Project
-David's 4082 TalkBox Project
+TalkBox Project
+
+For more information on the Talkbox Project, please visit: 
+http://talkbox.apps01.yorku.ca/
 
 Code Developed by Foad Hamidi.
 
